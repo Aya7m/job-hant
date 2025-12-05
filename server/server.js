@@ -10,13 +10,15 @@ const port = 3000
 
 
 app.use(cors())
-app.use(express.json())
+
 
 dotenv.config()
 dbConnect()
 
 
-app.post('/webhooks',clerkWebhooks)
+app.post('/webhooks', express.raw({ type: 'application/json' }), clerkWebhooks)
+
+app.use(express.json())
 app.get('/', (req, res) => res.send('Hello World!'))
 
 
